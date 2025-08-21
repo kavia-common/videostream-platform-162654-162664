@@ -1,11 +1,28 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import ChipsRow from '../components/ChipsRow.astro';
+import Shelf from '../components/Shelf.astro';
+import RelatedVideos from '../components/RelatedVideos.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const items = Array.from({ length: 10 }).map((_, i) => ({
+  thumb: `https://picsum.photos/seed/uiux${i}/640/360`,
+  duration: `${10 + i}:${(i * 3) % 60}`.padStart(2, '0'),
+  title: `UI/UX Design Principles ${i + 1}: Creating better interfaces and delightful experiences`,
+  channel: `Design Channel ${i + 1}`,
+  views: `${(i + 1) * 12}k views`,
+  age: `${i + 1} days ago`,
+  avatar: `https://i.pravatar.cc/48?img=${i + 10}`
+}));
 ---
 
 <Layout>
-	<Welcome />
+  <section aria-label="Filter chips">
+    <ChipsRow />
+  </section>
+
+  <section aria-label="Featured videos" style="margin-top: 8px;">
+    <Shelf items={items} />
+  </section>
+
+  <RelatedVideos items={items.slice(0, 8)} />
 </Layout>

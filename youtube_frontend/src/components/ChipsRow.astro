@@ -1,0 +1,55 @@
+---
+/**
+ * ChipsRow.astro
+ * Scrollable row of filter chips with active state.
+ */
+const chips: { label: string; active?: boolean }[] = [
+  { label: 'All', active: true },
+  { label: 'Music' },
+  { label: 'UI/UX' },
+  { label: 'User interface design' },
+  { label: 'Graphic design' },
+  { label: 'User experience design' },
+  { label: 'UI' },
+  { label: 'Interaction design' },
+];
+---
+
+<div class="chips-row" role="tablist" aria-label="Filters">
+  {chips.map((c, idx) => (
+    <button class={`chip ${c.active ? 'active' : ''}`} role="tab" aria-selected={c.active ? 'true' : 'false'} tabindex={c.active ? 0 : -1}>
+      {c.label}
+    </button>
+  ))}
+</div>
+
+<style>
+  .chips-row {
+    display: flex;
+    gap: 8px;
+    padding: 12px 0;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+  .chip {
+    padding: 8px 14px;
+    border: 1px solid var(--chip-border);
+    border-radius: 18px;
+    background: var(--chip-bg);
+    color: var(--chip-text);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .chip:hover { background: var(--bg-elev-1); }
+  .chip.active {
+    background: var(--text-primary);
+    color: #fff;
+    border-color: var(--text-primary);
+  }
+  .chip:focus-visible {
+    outline: 2px solid var(--accent-blue);
+    outline-offset: 2px;
+  }
+</style>

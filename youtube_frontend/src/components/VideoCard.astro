@@ -1,0 +1,108 @@
+---
+/**
+ * VideoCard.astro
+ * Reusable video card with thumbnail, duration badge, title and meta.
+ * Props: thumb, duration, title, channel, views, age, avatar
+ */
+export interface Props {
+  thumb?: string;
+  duration?: string;
+  title: string;
+  channel: string;
+  views: string;
+  age: string;
+  avatar?: string;
+}
+const {
+  thumb = 'https://picsum.photos/seed/ux1/640/360',
+  duration = '12:34',
+  title,
+  channel,
+  views,
+  age,
+  avatar = 'https://i.pravatar.cc/48',
+} = Astro.props as Props;
+---
+
+<article class="video-card">
+  <a class="thumb-wrapper" href="#" aria-label={title}>
+    <img class="thumbnail" src={thumb} alt={`${title} thumbnail`} loading="lazy" />
+    <span class="duration-badge">{duration}</span>
+  </a>
+  <h3 class="title" title={title}>{title}</h3>
+  <div class="meta">
+    <img class="avatar" src={avatar} alt="" aria-hidden="true" />
+    <div class="meta-text">
+      <div class="channel">{channel}</div>
+      <div class="stats">{views} • {age}</div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .video-card {
+    width: min(320px, 22vw);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .thumb-wrapper {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--thumbnail-bg);
+    aspect-ratio: 16/9;
+    display: block;
+  }
+  .thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .2s ease;
+    display: block;
+  }
+  .thumb-wrapper:hover .thumbnail { transform: scale(1.01); }
+  .duration-badge {
+    position: absolute;
+    right: 6px;
+    bottom: 6px;
+    font-size: 12px;
+    color: #fff;
+    background: rgba(0,0,0,.8);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+  .title {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text-primary);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .meta {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    color: var(--text-secondary);
+    font-size: 13px;
+  }
+  .avatar {
+    width: 24px;
+    height: 24px;
+    border-radius: 12px;
+    object-fit: cover;
+    background: #ccc;
+  }
+  .channel { font-weight: 500; }
+  .stats { color: var(--text-secondary); }
+  @media (max-width: 1024px) {
+    .video-card { width: min(340px, 40vw); }
+  }
+  @media (max-width: 768px) {
+    .video-card { width: 100%; }
+  }
+</style>

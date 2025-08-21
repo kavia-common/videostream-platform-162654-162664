@@ -1,0 +1,145 @@
+---
+/**
+ * Header.astro
+ * Sticky top navigation bar with hamburger, logo, search, mic, and action icons.
+ * Uses CSS variables defined in Layout for colors and spacing.
+ */
+---
+
+<header class="header" aria-label="Main header">
+  <div class="left">
+    <button class="icon" aria-label="Open navigation">
+      <!-- Hamburger icon -->
+      <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path fill="currentColor" d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h18v2H3v-2z"/></svg>
+    </button>
+    <a class="logo" href="/" aria-label="Home">
+      <!-- Simple YouTube-like logo word cluster -->
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22"><path fill="var(--brand-red)" d="M10 8l6 4-6 4V8z"/></svg>
+      </span>
+      <span class="logo-text">YouStream</span>
+    </a>
+  </div>
+
+  <div class="center">
+    <form class="search" role="search" aria-label="Search">
+      <input class="search-input" type="text" name="q" placeholder="Search" aria-label="Search input" />
+      <button class="search-btn" type="submit" aria-label="Search">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.471 6.471 0 0 0 1.57-4.23 6.5 6.5 0 1 0-6.5 6.5 6.471 6.471 0 0 0 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+      </button>
+    </form>
+    <button class="icon mic" aria-label="Voice search">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 14a3 3 0 0 0 3-3V6a3 3 0 0 0-6 0v5a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg>
+    </button>
+  </div>
+
+  <div class="right">
+    <button class="icon" aria-label="Create">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M10 8h4v4h4v4h-4v4h-4v-4H6v-4h4z"/></svg>
+    </button>
+    <button class="icon bell" aria-label="Notifications">
+      <span class="badge" aria-hidden="true">3</span>
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12 22a2 2 0 0 0 2-2H10a2 2 0 0 0 2 2zm6-6V11a6 6 0 1 0-12 0v5l-2 2v1h16v-1l-2-2z"/></svg>
+    </button>
+    <img class="avatar" src="https://i.pravatar.cc/40" alt="User avatar" width="32" height="32" />
+  </div>
+</header>
+
+<style>
+  .header {
+    grid-area: header;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    padding: 0 16px;
+    background: var(--bg-surface);
+    border-bottom: 1px solid var(--divider);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .left, .center, .right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    display: grid;
+    place-items: center;
+    color: var(--icon);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  .icon:hover { background: var(--hover); }
+  .bell { position: relative; }
+  .badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: var(--brand-red);
+    color: #fff;
+    font-size: 10px;
+    line-height: 1;
+    padding: 2px 5px;
+    border-radius: 10px;
+  }
+
+  .center { flex: 1; justify-content: center; }
+  .search {
+    display: flex;
+    align-items: center;
+    width: min(720px, 52vw);
+    height: 40px;
+    background: var(--bg-surface);
+    border: 1px solid var(--chip-border);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+  .search-input {
+    flex: 1;
+    padding: 0 12px 0 16px;
+    font-size: 14px;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    background: transparent;
+  }
+  .search-btn {
+    width: 56px;
+    height: 100%;
+    border: none;
+    border-left: 1px solid var(--divider);
+    background: var(--bg-surface);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+  .search-btn:hover { background: var(--bg-elev-1); }
+  .mic { margin-left: 8px; }
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    object-fit: cover;
+  }
+
+  @media (max-width: 768px) {
+    .search { width: min(520px, 60vw); }
+    .logo-text { display: none; }
+  }
+</style>

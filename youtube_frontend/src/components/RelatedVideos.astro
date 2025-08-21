@@ -1,0 +1,52 @@
+---
+/**
+ * RelatedVideos.astro
+ * Section header and a Shelf row underneath.
+ */
+import Shelf from './Shelf.astro';
+
+export interface Props {
+  title?: string;
+  items: any[];
+}
+const { title = 'Related Videos', items = [] } = Astro.props as Props;
+---
+
+<section class="related" aria-labelledby="related-title">
+  <div class="section-header">
+    <h2 id="related-title">{title}</h2>
+    <button class="icon close" aria-label="Close related videos">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+    </button>
+  </div>
+  <Shelf items={items} />
+</section>
+
+<style>
+  .related { margin-top: 16px; }
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0 12px;
+    border-bottom: 1px solid var(--divider);
+  }
+  .section-header h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-primary);
+  }
+  .icon.close {
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+    display: grid;
+    place-items: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+  .icon.close:hover { background: var(--hover); }
+  .icon.close:focus-visible { outline: 2px solid var(--accent-blue); outline-offset: 2px; }
+</style>

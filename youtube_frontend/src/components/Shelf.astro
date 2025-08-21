@@ -1,0 +1,41 @@
+---
+/**
+ * Shelf.astro
+ * Horizontal scroll container to showcase a row of VideoCards.
+ * Props: items (array of VideoCard props)
+ */
+import VideoCard from './VideoCard.astro';
+
+export interface VideoItem {
+  thumb?: string;
+  duration?: string;
+  title: string;
+  channel: string;
+  views: string;
+  age: string;
+  avatar?: string;
+}
+export interface Props {
+  items: VideoItem[];
+}
+const { items = [] } = Astro.props as Props;
+---
+
+<div class="shelf">
+  <div class="shelf-row">
+    {items.map((it) => (<VideoCard {...it} />))}
+  </div>
+</div>
+
+<style>
+  .shelf-row {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scroll-snap-type: x proximity;
+  }
+  .shelf-row > * { scroll-snap-align: start; }
+  .shelf-row::-webkit-scrollbar { height: 8px; }
+  .shelf-row::-webkit-scrollbar-thumb { background: var(--divider); border-radius: 4px; }
+</style>

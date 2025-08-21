@@ -1,54 +1,91 @@
 ---
 import ThemeToggle from '../components/ThemeToggle.astro';
+import Header from '../components/Header.astro';
+import Sidebar from '../components/Sidebar.astro';
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<ThemeToggle />
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>YouStream</title>
+  </head>
+  <body>
+    <ThemeToggle />
+    <div class="app">
+      <Header />
+      <Sidebar />
+      <main class="main">
+        <slot />
+      </main>
+    </div>
+  </body>
 </html>
 
 <style>
-	:root {
-		/* Light theme variables */
-		--bg-color: #ffffff;
-		--text-color: #111827;
-		--text-secondary: #4b5563;
-		--border-color: rgba(0, 0, 0, 0.1);
-		--card-bg: rgba(255, 255, 255, 1);
-		--card-hover-bg: rgba(255, 255, 255, 0.55);
-		--shadow-color: rgba(0, 0, 0, 0.1);
-		--shadow-hover-color: rgba(0, 0, 0, 0.15);
-	}
+  :root {
+    /* Color tokens from style_guide and results page notes */
+    --bg-canvas: #F2F2F2;
+    --bg-surface: #FFFFFF;
+    --bg-elev-1: #F8F8F8;
+    --text-primary: #0F0F0F;
+    --text-secondary: #606060;
+    --text-tertiary: #909090;
+    --brand-red: #FF0000;
+    --accent-blue: #3EA6FF;
+    --chip-bg: #F2F2F2;
+    --chip-border: #DADADA;
+    --chip-text: #0F0F0F;
+    --icon: #0F0F0F;
+    --icon-muted: #909090;
+    --divider: #E5E5E5;
+    --badge-live: #CC0000;
+    --badge-cc: #111111;
+    --thumbnail-bg: #E9E9E9;
+    --hover: rgba(0,0,0,0.06);
+  }
 
-	body.dark-theme {
-		/* Dark theme variables */
-		--bg-color: #111827;
-		--text-color: #f9fafb;
-		--text-secondary: #d1d5db;
-		--border-color: rgba(255, 255, 255, 0.2);
-		--card-bg: rgba(31, 41, 55, 0.9);
-		--card-hover-bg: rgba(31, 41, 55, 0.7);
-		--shadow-color: rgba(0, 0, 0, 0.3);
-		--shadow-hover-color: rgba(0, 0, 0, 0.4);
-	}
+  html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-canvas);
+    color: var(--text-primary);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+  }
 
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-		background-color: var(--bg-color);
-		color: var(--text-color);
-		transition: background-color 0.3s ease, color 0.3s ease;
-	}
+  .app {
+    display: grid;
+    grid-template-rows: 56px 1fr;
+    grid-template-columns: 240px 1fr;
+    grid-template-areas:
+      "header header"
+      "sidebar main";
+    min-height: 100vh;
+    background: var(--bg-canvas);
+  }
+
+  header.header { grid-area: header; }
+  aside.sidebar { grid-area: sidebar; }
+  .main {
+    grid-area: main;
+    padding: 0 24px 24px;
+  }
+
+  @media (max-width: 1024px) {
+    .app {
+      grid-template-columns: 72px 1fr;
+    }
+  }
+  @media (max-width: 768px) {
+    .app {
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        "header"
+        "main";
+    }
+  }
 </style>
